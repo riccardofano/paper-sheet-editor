@@ -1,15 +1,11 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from "react";
-import SplitPane from "split-pane-react";
-import "../components/Split.css";
+import { Dispatch, SetStateAction, useState } from "react";
+import type { TileType } from "../Tile";
 
-const tileTypes = ["Vertical Split", "Horizontal Split", "Text"] as const;
-type TileType = (typeof tileTypes)[number];
+import Text from "./Text";
+import Split from "./Split";
+import Select from "./Select";
+
+import "../components/Split.css";
 
 const layoutCSS = {
   height: "100%",
@@ -49,68 +45,6 @@ function chooseType(
         </Split>
       );
     default:
-      return <TypeSelection setType={setTileType} />;
+      return <Select setType={setTileType} />;
   }
-}
-
-interface TypeSelectionProps {
-  setType: Dispatch<SetStateAction<TileType | null>>;
-}
-
-function TypeSelection({ setType }: TypeSelectionProps) {
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = new FormData(e.target as HTMLFormElement);
-    const type = formData.get("tileType");
-    if (!type) {
-      return;
-    }
-
-    setType(type as TileType);
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Pick the tile type:
-        <select name="tileType" defaultValue={tileTypes[0]}>
-          {tileTypes.map((tt) => (
-            <option value={tt}>{tt}</option>
-          ))}
-        </select>
-      </label>
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
-
-function Text() {
-  const [text, setText] = useState("");
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setText(e.currentTarget.value);
-  }
-
-  return <input type="text" value={text} onChange={handleChange} />;
-}
-
-interface SplitProps {
-  type: "vertical" | "horizontal";
-  children: JSX.Element[];
-}
-
-function Split({ children, type }: SplitProps) {
-  const [sizes, setSizes] = useState<(number | string)[]>([100, 100]);
-
-  return (
-    <SplitPane
-      split={type}
-      sizes={sizes}
-      onChange={setSizes}
-      sashRender={() => undefined}
-    >
-      {children}
-    </SplitPane>
-  );
 }

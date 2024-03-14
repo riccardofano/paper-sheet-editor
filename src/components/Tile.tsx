@@ -5,8 +5,9 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import SplitPane from "react-split-pane";
 
-const tileTypes = ["Split", "Text"] as const;
+const tileTypes = ["Vertical Split", "Horizontal Split", "Text"] as const;
 type TileType = (typeof tileTypes)[number];
 
 export default function Tile() {
@@ -15,12 +16,27 @@ export default function Tile() {
   switch (tileType) {
     case "Text":
       return <Text />;
-    case "Split":
+    case "Vertical Split":
       return (
-        <section>
+        <SplitPane
+          split="vertical"
+          defaultSize={100}
+          resizerStyle={{ width: 10, backgroundColor: "black" }}
+        >
           <Tile />
           <Tile />
-        </section>
+        </SplitPane>
+      );
+    case "Horizontal Split":
+      return (
+        <SplitPane
+          split="horizontal"
+          defaultSize={100}
+          resizerStyle={{ height: 10, backgroundColor: "black" }}
+        >
+          <Tile />
+          <Tile />
+        </SplitPane>
       );
     default:
       return <TypeSelection setType={setTileType} />;

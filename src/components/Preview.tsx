@@ -5,8 +5,8 @@ interface PreviewProps {
 export default function Preview({ textPieces }: PreviewProps) {
   return (
     <main>
-      {textPieces.map((piece) => (
-        <p>{piece}</p>
+      {textPieces.map((piece, i) => (
+        <p key={i}>{piece}</p>
       ))}
     </main>
   );

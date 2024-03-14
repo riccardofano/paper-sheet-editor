@@ -5,38 +5,48 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import SplitPane from "react-split-pane";
+import SplitPane from "split-pane-react";
+import "../components/Split.css";
 
 const tileTypes = ["Vertical Split", "Horizontal Split", "Text"] as const;
 type TileType = (typeof tileTypes)[number];
 
+const layoutCSS = {
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 export default function Tile() {
   const [tileType, setTileType] = useState<TileType | null>(null);
 
+  return (
+    <div style={{ ...layoutCSS }}>{chooseType(tileType, setTileType)}</div>
+  );
+}
+
+function chooseType(
+  tileType: TileType | null,
+  setTileType: Dispatch<SetStateAction<TileType | null>>
+) {
   switch (tileType) {
     case "Text":
       return <Text />;
     case "Vertical Split":
       return (
-        <SplitPane
-          split="vertical"
-          defaultSize={100}
-          resizerStyle={{ width: 10, backgroundColor: "black" }}
-        >
+        <Split type="vertical">
           <Tile />
           <Tile />
-        </SplitPane>
+        </Split>
       );
     case "Horizontal Split":
       return (
-        <SplitPane
-          split="horizontal"
-          defaultSize={100}
-          resizerStyle={{ height: 10, backgroundColor: "black" }}
-        >
+        <Split type="horizontal">
           <Tile />
           <Tile />
-        </SplitPane>
+        </Split>
       );
     default:
       return <TypeSelection setType={setTileType} />;
@@ -83,4 +93,24 @@ function Text() {
   }
 
   return <input type="text" value={text} onChange={handleChange} />;
+}
+
+interface SplitProps {
+  type: "vertical" | "horizontal";
+  children: JSX.Element[];
+}
+
+function Split({ children, type }: SplitProps) {
+  const [sizes, setSizes] = useState<(number | string)[]>([100, 100]);
+
+  return (
+    <SplitPane
+      split={type}
+      sizes={sizes}
+      onChange={setSizes}
+      sashRender={() => undefined}
+    >
+      {children}
+    </SplitPane>
+  );
 }

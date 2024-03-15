@@ -1,6 +1,7 @@
 import { useState } from "react";
-
 import SplitPane from "split-pane-react";
+
+import "../components/Split.css";
 
 interface SplitProps {
   type: "vertical" | "horizontal";

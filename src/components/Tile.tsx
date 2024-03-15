@@ -5,8 +5,6 @@ import Text from "./Text";
 import Split from "./Split";
 import Select from "./Select";
 
-import "../components/Split.css";
-
 const layoutCSS = {
   height: "100%",
   width: "100%",

@@ -19,19 +19,9 @@ function chooseType(
     case "Text":
       return <Text />;
     case "Vertical Split":
-      return (
-        <Split type="vertical">
-          <Tile />
-          <Tile />
-        </Split>
-      );
+      return <Split type="vertical" />;
     case "Horizontal Split":
-      return (
-        <Split type="horizontal">
-          <Tile />
-          <Tile />
-        </Split>
-      );
+      return <Split type="horizontal" />;
     default:
       return <Select setType={setTileType} />;
   }

@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { TileType, tileTypes } from "../Tile";
 
 interface TypeSelectionProps {
@@ -6,29 +6,22 @@ interface TypeSelectionProps {
 }
 
 export default function TypeSelection({ setType }: TypeSelectionProps) {
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = new FormData(e.target as HTMLFormElement);
-    const type = formData.get("tileType");
-    if (!type) {
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    if (!e.currentTarget.value) {
       return;
     }
 
-    setType(type as TileType);
+    setType(e.currentTarget.value as TileType);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Pick the tile type:
-        <select name="tileType" defaultValue={tileTypes[0]}>
-          {tileTypes.map((tt) => (
-            <option value={tt}>{tt}</option>
-          ))}
-        </select>
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <select name="tileType" onChange={handleChange} defaultValue="">
+      <option disabled selected value="">
+        -- Pick the tile type --
+      </option>
+      {tileTypes.map((tt) => (
+        <option value={tt}>{tt}</option>
+      ))}
+    </select>
   );
 }

@@ -5,20 +5,10 @@ import Text from "./Text";
 import Split from "./Split";
 import Select from "./Select";
 
-const layoutCSS = {
-  height: "100%",
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
 export default function Tile() {
   const [tileType, setTileType] = useState<TileType | null>(null);
 
-  return (
-    <div style={{ ...layoutCSS }}>{chooseType(tileType, setTileType)}</div>
-  );
+  return <div className="tile">{chooseType(tileType, setTileType)}</div>;
 }
 
 function chooseType(

@@ -16,11 +16,11 @@ export default function TypeSelection({ setType }: TypeSelectionProps) {
 
   return (
     <select name="tileType" onChange={handleChange} defaultValue="">
-      <option disabled selected value="">
+      <option disabled value="">
         -- Pick the tile type --
       </option>
       {tileTypes.map((tt) => (
-        <option value={tt}>{tt}</option>
+        <option key={tt}>{tt}</option>
       ))}
     </select>
   );

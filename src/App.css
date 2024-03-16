@@ -14,4 +14,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.dismiss {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: none;
+}
+
+.tile:hover .dismiss {
+  display: block;
 }

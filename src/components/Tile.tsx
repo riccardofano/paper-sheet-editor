@@ -17,11 +17,8 @@ export default function Tile() {
   }
 
   return (
-    <div className="tile" style={{ position: "relative" }}>
-      <button
-        style={{ position: "absolute", top: "1rem", right: "1rem", zIndex: 10 }}
-        onClick={() => setTileType(null)}
-      >
+    <div className="tile">
+      <button className="dismiss" onClick={() => setTileType(null)}>
         X
       </button>
       {chooseType(tileType)}

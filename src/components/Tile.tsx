@@ -34,7 +34,9 @@ function chooseType(tileType: TileType) {
       return <Split type="vertical" />;
     case "Horizontal Split":
       return <Split type="horizontal" />;
-    default:
-      throw new Error("Unknown tile type");
+    default: {
+      const exhaustiveCheck: never = tileType;
+      throw new Error(`Unhandled color case: ${exhaustiveCheck}`);
+    }
   }
 }

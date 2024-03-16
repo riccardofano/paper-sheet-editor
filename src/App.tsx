@@ -4,8 +4,8 @@ import "./App.css";
 
 function App() {
   return (
-    <main style={{ height: "100vh" }}>
-      <Tile />;
+    <main className="canvas">
+      <Tile />
     </main>
   );
 }

@@ -4,6 +4,7 @@ import type { TileType } from "../Tile";
 import Text from "./Text";
 import Split from "./Split";
 import Select from "./Select";
+import Image from "./Image";
 
 export default function Tile() {
   const [tileType, setTileType] = useState<TileType | null>(null);
@@ -34,6 +35,8 @@ function chooseType(tileType: TileType) {
       return <Split type="vertical" />;
     case "Horizontal Split":
       return <Split type="horizontal" />;
+    case "Image":
+      return <Image />;
     default: {
       const exhaustiveCheck: never = tileType;
       throw new Error(`Unhandled color case: ${exhaustiveCheck}`);

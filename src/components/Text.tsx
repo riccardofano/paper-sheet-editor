@@ -1,13 +1,10 @@
-import { useState } from "react";
-
 export default function Text() {
-  const [text, setText] = useState("");
-
   return (
-    <input
-      type="text"
-      value={text}
-      onChange={(e) => setText(e.currentTarget.value)}
-    />
+    <span
+      contentEditable
+      style={{ minWidth: "1rem", border: "1px dashed gray" }}
+    >
+      Insert your text here
+    </span>
   );
 }

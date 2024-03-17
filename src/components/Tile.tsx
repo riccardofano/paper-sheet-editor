@@ -1,42 +1,55 @@
-import { useState } from "react";
-import type { TileType } from "../Tile";
+import { useContext } from "react";
+import { TilesContext, type TileType } from "../Tile";
 
 import Text from "./Text";
 import Split from "./Split";
 import Select from "./Select";
 import Image from "./Image";
 
-export default function Tile() {
-  const [tileType, setTileType] = useState<TileType | null>(null);
+interface TileProps {
+  id: number;
+}
+
+export default function Tile({ id }: TileProps) {
+  const { tiles, setTiles } = useContext(TilesContext);
+  const tileType = tiles[id]?.type ?? null;
+
+  function resetTile() {
+    setTiles((prev) => {
+      const next = [...prev];
+      next[id].type = null;
+      return next;
+    });
+  }
 
   if (!tileType) {
     return (
       <div className="tile">
-        <Select setType={setTileType} />
+        <Select id={id} />
       </div>
     );
   }
 
   return (
     <div className="tile">
-      <button className="dismiss" onClick={() => setTileType(null)}>
+      <button className="dismiss" onClick={resetTile}>
         X
       </button>
-      {chooseType(tileType)}
+      {chooseType(id, tileType)}
     </div>
   );
 }
 
-function chooseType(tileType: TileType) {
+function chooseType(id: number, tileType: TileType) {
   switch (tileType) {
     case "Text":
-      return <Text />;
+      return <Text id={id} />;
     case "Vertical Split":
-      return <Split type="vertical" />;
+      return <Split id={id} orientation="vertical" />;
     case "Horizontal Split":
-      return <Split type="horizontal" />;
+      return <Split id={id} orientation="horizontal" />;
     case "Image":
-      return <Image />;
+      return <Image id={id} />;
     default: {
       const exhaustiveCheck: never = tileType;
       throw new Error(`Unhandled color case: ${exhaustiveCheck}`);

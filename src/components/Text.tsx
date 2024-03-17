@@ -1,11 +1,21 @@
-export default function Text() {
+import { useContext } from "react";
+import { TilesContext } from "../Tile";
+
+export default function Text({ id }: { id: number }) {
+  const { tiles } = useContext(TilesContext);
+  const tile = tiles[id];
+
+  if (tile.type !== "Text") {
+    return;
+  }
+
   return (
     <span
       contentEditable
       suppressContentEditableWarning
       style={{ minWidth: "1rem", border: "1px dashed gray" }}
     >
-      Insert your text here
+      Insert your text here -- {tile.text} --
     </span>
   );
 }

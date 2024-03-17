@@ -1,17 +1,24 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { TileType, tileTypes } from "../Tile";
+import { ChangeEvent, useContext } from "react";
+import { TileType, getDefaultProperties, tileTypes } from "../Tile";
+import { TilesContext } from "../Tile";
 
 interface TypeSelectionProps {
-  setType: Dispatch<SetStateAction<TileType | null>>;
+  id: number;
 }
 
-export default function TypeSelection({ setType }: TypeSelectionProps) {
+export default function TypeSelection({ id }: TypeSelectionProps) {
+  const { setTiles } = useContext(TilesContext);
+
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     if (!e.currentTarget.value) {
       return;
     }
 
-    setType(e.currentTarget.value as TileType);
+    setTiles((prev) => {
+      const next = [...prev];
+      next[id] = getDefaultProperties(e.target.value as TileType);
+      return next;
+    });
   }
 
   return (

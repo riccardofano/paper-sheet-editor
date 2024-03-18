@@ -7,6 +7,7 @@ interface SettingsPanelProps {
 
 export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
   const { tiles, setTiles } = useContext(TilesContext);
+  const presets = getAllPresets();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>, key: string) {
     // TODO: some properties have to be changed differently like the type
@@ -31,14 +32,8 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
       return;
     }
 
-    try {
-      const presets = getAllPresets();
-      presets[name] = tiles;
-      savePresets(presets);
-    } catch (e) {
-      console.error(e);
-      return;
-    }
+    presets[name] = tiles;
+    savePresets(presets);
   }
 
   // TODO: Images from presets don't get loaded correctly
@@ -52,22 +47,17 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
       return;
     }
 
-    try {
-      const presets = getAllPresets();
-      const presetToLoad = presets[name];
-
-      if (!presetToLoad) {
-        throw new Error("Could not find desired preset");
-      }
-      if (!Array.isArray(presetToLoad)) {
-        throw new Error("Saved preset was not an array");
-      }
-
-      setTiles(presetToLoad);
-    } catch (e) {
-      console.error(e);
+    const presetToLoad = presets[name];
+    if (!presetToLoad) {
+      console.error("Could not find desired preset");
       return;
     }
+    if (!Array.isArray(presetToLoad)) {
+      console.error("Saved preset was not an array");
+      return;
+    }
+
+    setTiles(presetToLoad);
   }
 
   const selectedTile = tiles[selectedId];
@@ -87,7 +77,13 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
 
       <form onSubmit={loadPreset}>
         <h2>Load preset</h2>
-        <input type="text" name="preset-name" />
+        <select name="preset-name">
+          {Object.keys(presets).map((key) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </select>
         <button>Load preset</button>
       </form>
 
@@ -114,13 +110,17 @@ function getAllPresets(): Record<string, unknown> {
     return {};
   }
 
-  const allPresets = JSON.parse(presetsAsString);
+  try {
+    const allPresets = JSON.parse(presetsAsString);
+    if (typeof allPresets !== "object") {
+      return {};
+    }
 
-  if (typeof allPresets !== "object") {
+    return allPresets;
+  } catch (e) {
+    console.error(e);
     return {};
   }
-
-  return allPresets;
 }
 
 function savePresets(presets: Record<string, unknown>) {

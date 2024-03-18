@@ -44,3 +44,7 @@ export const TilesContext = createContext<TileContextType>({
   tiles: [],
   setTiles: () => {},
 });
+
+export const SelectedTileContext = createContext<
+  Dispatch<SetStateAction<number>>
+>(() => {});

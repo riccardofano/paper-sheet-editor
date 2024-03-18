@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { TileProperties, TilesContext, getDefaultProperties } from "./Tile";
+import {
+  SelectedTileContext,
+  TileProperties,
+  TilesContext,
+  getDefaultProperties,
+} from "./Tile";
 
 import SettingsPanel from "./components/SettingsPanel";
 import Tile from "./components/Tile";
@@ -7,20 +12,23 @@ import Tile from "./components/Tile";
 import "./App.css";
 
 function App() {
+  const [selectedTile, setSelectedTile] = useState(0);
   const [tiles, setTiles] = useState<TileProperties[]>([
     getDefaultProperties(null),
   ]);
 
   return (
-    <TilesContext.Provider value={{ tiles, setTiles }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-        <SettingsPanel selectedId={0} />
+    <SelectedTileContext.Provider value={setSelectedTile}>
+      <TilesContext.Provider value={{ tiles, setTiles }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <SettingsPanel selectedId={selectedTile} />
 
-        <main className="canvas">
-          <Tile id={0} />
-        </main>
-      </div>
-    </TilesContext.Provider>
+          <main className="canvas">
+            <Tile id={0} />
+          </main>
+        </div>
+      </TilesContext.Provider>
+    </SelectedTileContext.Provider>
   );
 }
 

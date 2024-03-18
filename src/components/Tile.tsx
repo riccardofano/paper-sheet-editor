@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TilesContext, type TileType } from "../Tile";
+import { SelectedTileContext, TilesContext, type TileType } from "../Tile";
 
 import Text from "./Text";
 import Split from "./Split";
@@ -12,6 +12,8 @@ interface TileProps {
 
 export default function Tile({ id }: TileProps) {
   const { tiles, setTiles } = useContext(TilesContext);
+  const setSelectedTile = useContext(SelectedTileContext);
+
   const tileType = tiles[id]?.type ?? null;
 
   function resetTile() {
@@ -20,6 +22,11 @@ export default function Tile({ id }: TileProps) {
       next[id] = { type: null };
       return next;
     });
+  }
+
+  function setAsSelected(e: React.MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
+    setSelectedTile(id);
   }
 
   if (!tileType) {
@@ -31,7 +38,7 @@ export default function Tile({ id }: TileProps) {
   }
 
   return (
-    <div className="tile">
+    <div className="tile" onClick={setAsSelected}>
       <button className="dismiss" onClick={resetTile}>
         X
       </button>

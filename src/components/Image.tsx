@@ -1,9 +1,20 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext } from "react";
 import { ImageTile, TilesContext } from "../Tile";
 
 export default function Image({ id }: { id: number }) {
   const { tiles, setTiles } = useContext(TilesContext);
   const tile = tiles[id];
+
+  function handleImagePicker(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setTiles((prev) => {
+      const next = [...prev];
+      next[id] = { ...next[id], file } as ImageTile;
+      return next;
+    });
+  }
 
   if (tile.type !== "Image") {
     return;
@@ -11,21 +22,7 @@ export default function Image({ id }: { id: number }) {
 
   const selectedImage = tile.file;
   if (!selectedImage) {
-    return (
-      <input
-        type="file"
-        onChange={(event) => {
-          const file = event.target.files?.[0];
-          if (!file) return;
-
-          setTiles((prev) => {
-            const next = [...prev];
-            next[id] = { ...next[id], file } as ImageTile;
-            return next;
-          });
-        }}
-      />
-    );
+    return <ImagePicker handleChange={handleImagePicker} />;
   }
 
   return (
@@ -35,4 +32,12 @@ export default function Image({ id }: { id: number }) {
       alt=""
     />
   );
+}
+
+interface ImagePickerProps {
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function ImagePicker({ handleChange }: ImagePickerProps) {
+  return <input type="file" onChange={handleChange} />;
 }

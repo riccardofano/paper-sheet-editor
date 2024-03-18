@@ -8,10 +8,11 @@ export default function Image({ id }: { id: number }) {
   function handleImagePicker(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    const url = URL.createObjectURL(file);
 
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { ...next[id], file } as ImageTile;
+      next[id] = { ...next[id], url } as ImageTile;
       return next;
     });
   }
@@ -20,18 +21,12 @@ export default function Image({ id }: { id: number }) {
     return;
   }
 
-  const selectedImage = tile.file;
+  const selectedImage = tile.url;
   if (!selectedImage) {
     return <ImagePicker handleChange={handleImagePicker} />;
   }
 
-  return (
-    <img
-      className="uploaded-image"
-      src={URL.createObjectURL(selectedImage)}
-      alt=""
-    />
-  );
+  return <img className="uploaded-image" src={selectedImage} alt="" />;
 }
 
 interface ImagePickerProps {

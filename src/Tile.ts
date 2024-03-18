@@ -11,7 +11,7 @@ export type TileType = (typeof tileTypes)[number];
 
 export type NullTile = { type: null };
 export type TextTile = { type: "Text"; text: string };
-export type ImageTile = { type: "Image"; file: File | null };
+export type ImageTile = { type: "Image"; url: string | null };
 export type SplitTile = {
   type: "Horizontal Split" | "Vertical Split";
   sizes: number[];
@@ -31,7 +31,7 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
     case "Text":
       return { type, text: "Insert some text here" };
     case "Image":
-      return { type, file: null };
+      return { type, url: null };
   }
 }
 

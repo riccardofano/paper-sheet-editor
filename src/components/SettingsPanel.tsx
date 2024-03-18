@@ -27,10 +27,35 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
     const data = new FormData(e.target as HTMLFormElement);
     const name = String(data.get("preset-name"));
     if (!name) {
+      console.error("User didn't provide name for preset");
       return;
     }
 
     localStorage.setItem(name, JSON.stringify(tiles));
+  }
+
+  // TODO: Images from presets don't get loaded correctly
+  function loadPreset(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const data = new FormData(e.target as HTMLFormElement);
+    const name = String(data.get("preset-name"));
+    if (!name) {
+      console.error("No name for the preset to load");
+      return;
+    }
+    const preset = localStorage.getItem(name);
+    if (!preset) {
+      console.error("Could not find a saved preset with that name");
+      return;
+    }
+
+    try {
+      const presetAsObject = JSON.parse(preset);
+      setTiles(presetAsObject);
+    } catch (e) {
+      console.error("Failed to JSON parse preset");
+    }
   }
 
   const selectedTile = tiles[selectedId];
@@ -46,6 +71,12 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
         <h2>Save as preset</h2>
         <input type="text" name="preset-name" />
         <button>Save preset</button>
+      </form>
+
+      <form onSubmit={loadPreset}>
+        <h2>Load preset</h2>
+        <input type="text" name="preset-name" />
+        <button>Load preset</button>
       </form>
 
       <h1>Selected tile settings</h1>

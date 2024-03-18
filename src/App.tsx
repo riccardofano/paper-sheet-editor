@@ -1,8 +1,10 @@
+import { useState } from "react";
+import { TileProperties, TilesContext, getDefaultProperties } from "./Tile";
+
+import SettingsPanel from "./components/SettingsPanel";
 import Tile from "./components/Tile";
 
 import "./App.css";
-import { useState } from "react";
-import { TileProperties, TilesContext, getDefaultProperties } from "./Tile";
 
 function App() {
   const [tiles, setTiles] = useState<TileProperties[]>([
@@ -11,9 +13,13 @@ function App() {
 
   return (
     <TilesContext.Provider value={{ tiles, setTiles }}>
-      <main className="canvas">
-        <Tile id={0} />
-      </main>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <SettingsPanel selectedId={0} />
+
+        <main className="canvas">
+          <Tile id={0} />
+        </main>
+      </div>
     </TilesContext.Provider>
   );
 }

@@ -31,7 +31,14 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
       return;
     }
 
-    localStorage.setItem(name, JSON.stringify(tiles));
+    try {
+      const presets = getAllPresets();
+      presets[name] = tiles;
+      savePresets(presets);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
   }
 
   // TODO: Images from presets don't get loaded correctly
@@ -44,17 +51,22 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
       console.error("No name for the preset to load");
       return;
     }
-    const preset = localStorage.getItem(name);
-    if (!preset) {
-      console.error("Could not find a saved preset with that name");
-      return;
-    }
 
     try {
-      const presetAsObject = JSON.parse(preset);
-      setTiles(presetAsObject);
+      const presets = getAllPresets();
+      const presetToLoad = presets[name];
+
+      if (!presetToLoad) {
+        throw new Error("Could not find desired preset");
+      }
+      if (!Array.isArray(presetToLoad)) {
+        throw new Error("Saved preset was not an array");
+      }
+
+      setTiles(presetToLoad);
     } catch (e) {
-      console.error("Failed to JSON parse preset");
+      console.error(e);
+      return;
     }
   }
 
@@ -94,4 +106,23 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
         ))}
     </section>
   );
+}
+
+function getAllPresets(): Record<string, unknown> {
+  const presetsAsString = localStorage.getItem("presets");
+  if (!presetsAsString) {
+    return {};
+  }
+
+  const allPresets = JSON.parse(presetsAsString);
+
+  if (typeof allPresets !== "object") {
+    return {};
+  }
+
+  return allPresets;
+}
+
+function savePresets(presets: Record<string, unknown>) {
+  localStorage.setItem("presets", JSON.stringify(presets));
 }

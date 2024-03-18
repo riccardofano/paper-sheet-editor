@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { TilesContext } from "../Tile";
 
 interface SettingsPanelProps {
@@ -7,7 +7,7 @@ interface SettingsPanelProps {
 
 export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
   const { tiles, setTiles } = useContext(TilesContext);
-  const presets = getAllPresets();
+  const [presets, setPresets] = useState(getAllPresets());
 
   function handleChange(e: ChangeEvent<HTMLInputElement>, key: string) {
     // TODO: some properties have to be changed differently like the type
@@ -32,8 +32,10 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
       return;
     }
 
-    presets[name] = tiles;
-    savePresets(presets);
+    const nextPresets = { ...presets };
+    nextPresets[name] = tiles;
+    savePresets(nextPresets);
+    setPresets(nextPresets);
   }
 
   // TODO: Images from presets don't get loaded correctly

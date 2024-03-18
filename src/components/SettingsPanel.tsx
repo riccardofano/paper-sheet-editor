@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, FormEvent, useContext } from "react";
 import { TilesContext } from "../Tile";
 
 interface SettingsPanelProps {
@@ -21,6 +21,18 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
     });
   }
 
+  function saveCurrentAsPreset(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const data = new FormData(e.target as HTMLFormElement);
+    const name = String(data.get("preset-name"));
+    if (!name) {
+      return;
+    }
+
+    localStorage.setItem(name, JSON.stringify(tiles));
+  }
+
   const selectedTile = tiles[selectedId];
   if (!selectedTile) {
     console.error("Selected tile does not exist");
@@ -29,6 +41,14 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
 
   return (
     <section style={{ padding: "1rem" }}>
+      <h1>Presets</h1>
+      <form onSubmit={saveCurrentAsPreset}>
+        <h2>Save as preset</h2>
+        <input type="text" name="preset-name" />
+        <button>Save preset</button>
+      </form>
+
+      <h1>Selected tile settings</h1>
       {selectedTile.type !== null &&
         Object.entries(selectedTile).map(([key, value]) => (
           <label key={key} style={{ display: "block" }}>

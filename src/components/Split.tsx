@@ -93,7 +93,7 @@ export default function Split({ id, orientation }: SplitProps) {
       sashRender={() => undefined}
     >
       {childIds.map((childId) => (
-        <Tile id={childId} />
+        <Tile key={childId} id={childId} />
       ))}
     </SplitPane>
   );

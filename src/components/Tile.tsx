@@ -17,7 +17,7 @@ export default function Tile({ id }: TileProps) {
   function resetTile() {
     setTiles((prev) => {
       const next = [...prev];
-      next[id].type = null;
+      next[id] = { type: null };
       return next;
     });
   }

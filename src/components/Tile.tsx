@@ -1,5 +1,10 @@
 import { useContext } from "react";
-import { SelectedTileContext, TilesContext, type TileType } from "../Tile";
+import {
+  getDefaultProperties,
+  SelectedTileContext,
+  TilesContext,
+  type TileType,
+} from "../Tile";
 
 import Text from "./Text";
 import Split from "./Split";
@@ -19,7 +24,7 @@ export default function Tile({ id }: TileProps) {
   function resetTile() {
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { type: null };
+      next[id] = getDefaultProperties(null);
       return next;
     });
   }
@@ -40,6 +45,7 @@ export default function Tile({ id }: TileProps) {
   return (
     <div
       className={"tile" + (id === selectedTileId ? " selected" : "")}
+      style={{ padding: tiles[id].padding, margin: tiles[id].margin }}
       onClick={setAsSelected}
     >
       <button className="dismiss" onClick={resetTile}>

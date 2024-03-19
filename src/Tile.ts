@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction, createContext } from "react";
 
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & object;
+
 export const tileTypes = [
   "Vertical Split",
   "Horizontal Split",
@@ -8,6 +12,8 @@ export const tileTypes = [
 ] as const;
 
 export type TileType = (typeof tileTypes)[number];
+
+export type DefaultTileProperties = { padding: string; margin: string };
 
 export type NullTile = { type: null };
 export type TextTile = { type: "Text"; text: string };
@@ -19,19 +25,28 @@ export type SplitTile = {
   childIds: number[];
 };
 
-export type TileProperties = NullTile | SplitTile | TextTile | ImageTile;
+export type TileProperties = Prettify<
+  (NullTile | SplitTile | TextTile | ImageTile) & DefaultTileProperties
+>;
 
 export function getDefaultProperties(type: TileType | null): TileProperties {
+  const defaultTileProperties = { padding: "0", margin: "0" };
   switch (type) {
     case null:
-      return { type };
+      return { ...defaultTileProperties, type };
     case "Vertical Split":
     case "Horizontal Split":
-      return { type, sizes: [100, 100], amount: 2, childIds: [] };
+      return {
+        ...defaultTileProperties,
+        type,
+        sizes: [100, 100],
+        amount: 2,
+        childIds: [],
+      };
     case "Text":
-      return { type, text: "Insert some text here" };
+      return { ...defaultTileProperties, type, text: "Insert some text here" };
     case "Image":
-      return { type, url: "" };
+      return { ...defaultTileProperties, type, url: "" };
   }
 }
 

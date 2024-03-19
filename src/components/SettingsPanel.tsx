@@ -7,7 +7,11 @@ export default function SettingsPanel() {
 
   const [presets, setPresets] = useState(getAllPresets());
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>, key: string) {
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement>,
+    tileId: number,
+    key: string
+  ) {
     // TODO: some properties have to be changed differently like the type
     // and basically everything that is not a string
 
@@ -15,7 +19,7 @@ export default function SettingsPanel() {
       const next = [...prev];
       // @ts-expect-error: The keys provided to the function come from the
       // object itself already so it shouldn't be a problem to index by them
-      next[selectedId][key] = e.target.value;
+      next[tileId][key] = e.target.value;
       return next;
     });
   }
@@ -89,17 +93,24 @@ export default function SettingsPanel() {
 
       <h1>Selected tile settings</h1>
       {selectedTile.type !== null &&
-        Object.entries(selectedTile).map(([key, value]) => (
-          <label key={key} style={{ display: "block" }}>
-            {key}
-            <br />
-            <input
-              type="text"
-              value={value}
-              onChange={(e) => handleChange(e, key)}
-            />
-          </label>
-        ))}
+        Object.entries(selectedTile).map(([key, value]) => {
+          if (typeof value !== "string") {
+            return null;
+          }
+
+          return (
+            <label key={key} style={{ display: "block" }}>
+              {key}
+              <br />
+
+              <input
+                type="text"
+                value={value}
+                onChange={(e) => handleChange(e, selectedTileId, key)}
+              />
+            </label>
+          );
+        })}
     </section>
   );
 }

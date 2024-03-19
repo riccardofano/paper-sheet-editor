@@ -18,10 +18,15 @@ function App() {
   ]);
 
   return (
-    <SelectedTileContext.Provider value={setSelectedTile}>
+    <SelectedTileContext.Provider
+      value={{
+        selectedTileId: selectedTile,
+        setSelectedTileId: setSelectedTile,
+      }}
+    >
       <TilesContext.Provider value={{ tiles, setTiles }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <SettingsPanel selectedId={selectedTile} />
+          <SettingsPanel />
 
           <main className="canvas">
             <Tile id={0} />

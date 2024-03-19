@@ -17,6 +17,10 @@
   position: relative;
 }
 
+.tile.selected {
+  background-color: skyblue;
+}
+
 .dismiss {
   position: absolute;
   top: 1rem;

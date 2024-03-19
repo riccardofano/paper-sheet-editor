@@ -1,12 +1,10 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { TilesContext } from "../Tile";
+import { SelectedTileContext, TilesContext } from "../Tile";
 
-interface SettingsPanelProps {
-  selectedId: number;
-}
-
-export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
+export default function SettingsPanel() {
   const { tiles, setTiles } = useContext(TilesContext);
+  const { selectedTileId } = useContext(SelectedTileContext);
+
   const [presets, setPresets] = useState(getAllPresets());
 
   function handleChange(e: ChangeEvent<HTMLInputElement>, key: string) {
@@ -62,7 +60,7 @@ export default function SettingsPanel({ selectedId }: SettingsPanelProps) {
     setTiles(presetToLoad);
   }
 
-  const selectedTile = tiles[selectedId];
+  const selectedTile = tiles[selectedTileId];
   if (!selectedTile) {
     console.error("Selected tile does not exist");
     return;

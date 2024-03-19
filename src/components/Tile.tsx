@@ -12,7 +12,7 @@ interface TileProps {
 
 export default function Tile({ id }: TileProps) {
   const { tiles, setTiles } = useContext(TilesContext);
-  const setSelectedTile = useContext(SelectedTileContext);
+  const { selectedTileId, setSelectedTileId } = useContext(SelectedTileContext);
 
   const tileType = tiles[id]?.type ?? null;
 
@@ -26,7 +26,7 @@ export default function Tile({ id }: TileProps) {
 
   function setAsSelected(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
-    setSelectedTile(id);
+    setSelectedTileId(id);
   }
 
   if (!tileType) {
@@ -38,7 +38,10 @@ export default function Tile({ id }: TileProps) {
   }
 
   return (
-    <div className="tile" onClick={setAsSelected}>
+    <div
+      className={"tile" + (id === selectedTileId ? " selected" : "")}
+      onClick={setAsSelected}
+    >
       <button className="dismiss" onClick={resetTile}>
         X
       </button>

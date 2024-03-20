@@ -10,6 +10,7 @@ import Text from "./Text";
 import Split from "./Split";
 import Select from "./Select";
 import Image from "./Image";
+import ParagraphList from "./ParagraphList";
 
 interface TileProps {
   id: number;
@@ -60,6 +61,8 @@ function chooseType(id: number, tileType: TileType) {
   switch (tileType) {
     case "Text":
       return <Text id={id} />;
+    case "List":
+      return <ParagraphList id={id} />;
     case "Vertical Split":
       return <Split id={id} orientation="vertical" />;
     case "Horizontal Split":

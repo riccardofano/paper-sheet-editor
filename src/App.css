@@ -21,7 +21,8 @@
   background-color: skyblue;
 }
 
-.dismiss {
+.dismiss,
+.add-paragraph {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -29,11 +30,31 @@
   z-index: 10;
 }
 
-.tile:hover .dismiss {
+.dismiss {
+  top: 1rem;
+  right: 1rem;
+}
+
+.add-paragraph {
+  top: 1rem;
+  left: 1rem;
+}
+
+.tile:hover .dismiss,
+.tile:hover .add-paragraph {
   display: block;
 }
 
 .uploaded-image {
   object-fit: fill;
   max-height: 100%;
+}
+
+.tile .paragraph-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
 }

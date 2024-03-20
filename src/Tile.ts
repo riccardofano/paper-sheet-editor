@@ -9,6 +9,7 @@ export const tileTypes = [
   "Horizontal Split",
   "Text",
   "Image",
+  "List",
 ] as const;
 
 export type TileType = (typeof tileTypes)[number];
@@ -17,6 +18,7 @@ export type DefaultTileProperties = { padding: string; margin: string };
 
 export type NullTile = { type: null };
 export type TextTile = { type: "Text"; text: string };
+export type ListTile = { type: "List"; paragraphs: string[] };
 export type ImageTile = { type: "Image"; url: string };
 export type SplitTile = {
   type: "Horizontal Split" | "Vertical Split";
@@ -26,11 +28,13 @@ export type SplitTile = {
 };
 
 export type TileProperties = Prettify<
-  (NullTile | SplitTile | TextTile | ImageTile) & DefaultTileProperties
+  (NullTile | SplitTile | TextTile | ListTile | ImageTile) &
+    DefaultTileProperties
 >;
 
 export function getDefaultProperties(type: TileType | null): TileProperties {
   const defaultTileProperties = { padding: "0", margin: "0" };
+
   switch (type) {
     case null:
       return { ...defaultTileProperties, type };
@@ -45,6 +49,8 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
       };
     case "Text":
       return { ...defaultTileProperties, type, text: "Insert some text here" };
+    case "List":
+      return { ...defaultTileProperties, type, paragraphs: [] };
     case "Image":
       return { ...defaultTileProperties, type, url: "" };
   }

@@ -9,7 +9,6 @@
   position: absolute;
   white-space: normal;
   width: 100%;
-  overflow: hidden;
 }
 .react-split__sash {
   height: 100%;

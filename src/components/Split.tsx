@@ -23,6 +23,7 @@ export default function Split({ id, orientation }: SplitProps) {
     return;
   }
 
+  // TODO: When the amount changes the amount of splits should change too
   const { amount, sizes, childIds } = tile;
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {

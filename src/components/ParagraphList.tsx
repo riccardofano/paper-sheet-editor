@@ -32,10 +32,12 @@ export default function ParagraphList({ id }: ParagraphListProps) {
       <button className="add-paragraph" onClick={addParagraph}>
         +
       </button>
-      {tile.paragraphs.map((p) => (
+      {tile.paragraphs.map((p, i) => (
         // TODO: change how content is edited
         // TODO: add way to remove paragraph
-        <p contentEditable>{p}</p>
+        <p key={i} contentEditable suppressContentEditableWarning>
+          {p}
+        </p>
       ))}
     </div>
   );

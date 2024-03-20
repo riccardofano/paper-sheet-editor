@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { SelectedTileContext, TilesContext } from "../Tile";
 
 export default function SettingsPanel() {
@@ -7,11 +7,7 @@ export default function SettingsPanel() {
 
   const [presets, setPresets] = useState(getAllPresets());
 
-  function handleChange(
-    e: ChangeEvent<HTMLInputElement>,
-    tileId: number,
-    key: string
-  ) {
+  function handleChange(tileId: number, key: string, value: number | string) {
     // TODO: some properties have to be changed differently like the type
     // and basically everything that is not a string
 
@@ -19,7 +15,29 @@ export default function SettingsPanel() {
       const next = [...prev];
       // @ts-expect-error: The keys provided to the function come from the
       // object itself already so it shouldn't be a problem to index by them
-      next[tileId][key] = e.target.value;
+      next[tileId][key] = value;
+      return next;
+    });
+  }
+
+  function changeArrayIndex(
+    tileId: number,
+    key: string,
+    value: number | string,
+    index: number
+  ) {
+    setTiles((prev) => {
+      const next = [...prev];
+      const tile = next[tileId];
+      // @ts-expect-error: I know it's an array.
+      const nextArray = [...tile[key]];
+      nextArray[index] = value;
+
+      next[tileId] = {
+        ...tile,
+        [key]: nextArray,
+      };
+
       return next;
     });
   }
@@ -94,24 +112,83 @@ export default function SettingsPanel() {
       <h1>Selected tile settings</h1>
       {selectedTile.type !== null &&
         Object.entries(selectedTile).map(([key, value]) => {
-          if (typeof value !== "string") {
-            return null;
-          }
-
-          return (
-            <label key={key} style={{ display: "block" }}>
-              {key}
-              <br />
-
-              <input
-                type="text"
-                value={value}
-                onChange={(e) => handleChange(e, selectedTileId, key)}
-              />
-            </label>
+          return Array.isArray(value) ? (
+            <ArrayInput
+              key={key}
+              k={key}
+              value={value}
+              handleChange={(value, index) =>
+                changeArrayIndex(selectedTileId, key, value, index)
+              }
+            />
+          ) : (
+            <PrimitiveInput
+              key={key}
+              k={key}
+              value={value}
+              handleChange={(value) => handleChange(selectedTileId, key, value)}
+            />
           );
         })}
     </section>
+  );
+}
+
+interface PrimitiveInputProps {
+  k: string;
+  value: string | number;
+  handleChange: (value: string | number) => void;
+}
+
+function PrimitiveInput({ k, value, handleChange }: PrimitiveInputProps) {
+  return (
+    <label key={k} style={{ display: "block" }}>
+      {k}
+      <br />
+
+      {typeof value === "string" ? (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      ) : (
+        <input
+          type="range"
+          value={value}
+          min={2}
+          max={8}
+          onChange={(e) => handleChange(+e.target.value)}
+        />
+      )}
+    </label>
+  );
+}
+
+interface ArrayInputProps {
+  k: string;
+  value: unknown[];
+  handleChange: (value: string | number, index: number) => void;
+}
+
+function ArrayInput({ k, value, handleChange }: ArrayInputProps) {
+  return (
+    <>
+      {value.map((val, index) => {
+        if (typeof val !== "string" && typeof val !== "number") {
+          return;
+        }
+
+        return (
+          <PrimitiveInput
+            key={`${k}-${index}`}
+            k={`${k}-${index}`}
+            value={val}
+            handleChange={(value) => handleChange(value, index)}
+          />
+        );
+      })}
+    </>
   );
 }
 

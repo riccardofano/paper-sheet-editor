@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { DefaultTileProperties, ListTile, TilesContext } from "../Tile";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 interface ParagraphListProps {
   id: number;
@@ -23,6 +24,19 @@ export default function ParagraphList({ id }: ParagraphListProps) {
     });
   }
 
+  function handleChange(e: ContentEditableEvent, index: number) {
+    setTiles((prev) => {
+      const next = [...prev];
+      const tile = next[id] as ListTile & DefaultTileProperties;
+
+      const nextParagraphs = [...tile.paragraphs];
+      nextParagraphs[index] = e.target.value;
+
+      next[id] = { ...tile, paragraphs: nextParagraphs };
+      return next;
+    });
+  }
+
   if (tile.type !== "List") {
     return;
   }
@@ -32,12 +46,13 @@ export default function ParagraphList({ id }: ParagraphListProps) {
       <button className="add-paragraph" onClick={addParagraph}>
         +
       </button>
-      {tile.paragraphs.map((p, i) => (
-        // TODO: change how content is edited
+      {tile.paragraphs.map((text, i) => (
         // TODO: add way to remove paragraph
-        <p key={i} contentEditable suppressContentEditableWarning>
-          {p}
-        </p>
+        <ContentEditable
+          key={i}
+          html={text}
+          onChange={(e) => handleChange(e, i)}
+        />
       ))}
     </div>
   );

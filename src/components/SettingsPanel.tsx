@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { SelectedTileContext, TilesContext } from "../Tile";
+import TextActions from "./TextActions";
 
 export default function SettingsPanel() {
   const { tiles, setTiles } = useContext(TilesContext);
@@ -130,6 +131,8 @@ export default function SettingsPanel() {
             />
           );
         })}
+      <h1>Text actions</h1>
+      <TextActions />
     </section>
   );
 }

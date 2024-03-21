@@ -3,7 +3,6 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 import { TextTile, TilesContext } from "../Tile";
 
-// TODO: Text should be controlled
 export default function Text({ id }: { id: number }) {
   const { tiles, setTiles } = useContext(TilesContext);
   const tile = tiles[id];

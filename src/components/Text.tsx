@@ -1,22 +1,31 @@
 import { useContext } from "react";
-import { TilesContext } from "../Tile";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+
+import { DefaultTileProperties, TextTile, TilesContext } from "../Tile";
 
 // TODO: Text should be controlled
 export default function Text({ id }: { id: number }) {
-  const { tiles } = useContext(TilesContext);
+  const { tiles, setTiles } = useContext(TilesContext);
   const tile = tiles[id];
 
   if (tile.type !== "Text") {
     return;
   }
 
+  function handleChange(e: ContentEditableEvent) {
+    setTiles((prev) => {
+      const next = [...prev];
+      next[id] = { ...next[id], text: e.target.value } as TextTile &
+        DefaultTileProperties;
+      return next;
+    });
+  }
+
   return (
-    <span
-      contentEditable
-      suppressContentEditableWarning
+    <ContentEditable
+      html={tile.text}
+      onChange={handleChange}
       style={{ minWidth: "1rem", border: "1px dashed gray" }}
-    >
-      Insert your text here -- {tile.text} --
-    </span>
+    />
   );
 }

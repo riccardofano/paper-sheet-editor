@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext } from "react";
-import { DefaultTileProperties, ImageTile, TilesContext } from "../Tile";
+import { ImageTile, TilesContext } from "../Tile";
 
 export default function Image({ id }: { id: number }) {
   const { tiles, setTiles } = useContext(TilesContext);
@@ -12,7 +12,7 @@ export default function Image({ id }: { id: number }) {
 
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { ...next[id], url } as ImageTile & DefaultTileProperties;
+      next[id] = { ...next[id], url } as ImageTile;
       return next;
     });
   }

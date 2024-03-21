@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DefaultTileProperties, ListTile, TilesContext } from "../Tile";
+import { ListTile, TilesContext } from "../Tile";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 interface ParagraphListProps {
@@ -13,7 +13,7 @@ export default function ParagraphList({ id }: ParagraphListProps) {
   function addParagraph() {
     setTiles((prev) => {
       const next = [...prev];
-      const tile = next[id] as ListTile & DefaultTileProperties;
+      const tile = next[id] as ListTile;
 
       next[id] = {
         ...tile,
@@ -27,7 +27,7 @@ export default function ParagraphList({ id }: ParagraphListProps) {
   function handleChange(e: ContentEditableEvent, index: number) {
     setTiles((prev) => {
       const next = [...prev];
-      const tile = next[id] as ListTile & DefaultTileProperties;
+      const tile = next[id] as ListTile;
 
       const nextParagraphs = [...tile.paragraphs];
       nextParagraphs[index] = e.target.value;

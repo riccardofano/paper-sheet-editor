@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
-import { DefaultTileProperties, TextTile, TilesContext } from "../Tile";
+import { TextTile, TilesContext } from "../Tile";
 
 // TODO: Text should be controlled
 export default function Text({ id }: { id: number }) {
@@ -15,8 +15,7 @@ export default function Text({ id }: { id: number }) {
   function handleChange(e: ContentEditableEvent) {
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { ...next[id], text: e.target.value } as TextTile &
-        DefaultTileProperties;
+      next[id] = { ...next[id], text: e.target.value } as TextTile;
       return next;
     });
   }

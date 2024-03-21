@@ -15,21 +15,22 @@ export const tileTypes = [
 export type TileType = (typeof tileTypes)[number];
 
 export type DefaultTileProperties = { padding: string; margin: string };
-
-export type NullTile = { type: null };
-export type TextTile = { type: "Text"; text: string };
-export type ListTile = { type: "List"; paragraphs: string[] };
-export type ImageTile = { type: "Image"; url: string };
+export type NullTile = { type: null } & DefaultTileProperties;
+export type TextTile = { type: "Text"; text: string } & DefaultTileProperties;
+export type ListTile = {
+  type: "List";
+  paragraphs: string[];
+} & DefaultTileProperties;
+export type ImageTile = { type: "Image"; url: string } & DefaultTileProperties;
 export type SplitTile = {
   type: "Horizontal Split" | "Vertical Split";
   sizes: number[];
   amount: number;
   childIds: number[];
-};
+} & DefaultTileProperties;
 
 export type TileProperties = Prettify<
-  (NullTile | SplitTile | TextTile | ListTile | ImageTile) &
-    DefaultTileProperties
+  NullTile | SplitTile | TextTile | ListTile | ImageTile
 >;
 
 export function getDefaultProperties(type: TileType | null): TileProperties {

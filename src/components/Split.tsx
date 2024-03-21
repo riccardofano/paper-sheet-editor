@@ -3,12 +3,7 @@ import SplitPane from "split-pane-react";
 
 import "../components/Split.css";
 import Tile from "./Tile";
-import {
-  DefaultTileProperties,
-  SplitTile,
-  TilesContext,
-  getDefaultProperties,
-} from "../Tile";
+import { SplitTile, TilesContext, getDefaultProperties } from "../Tile";
 
 interface SplitProps {
   id: number;
@@ -59,8 +54,7 @@ export default function Split({ id, orientation }: SplitProps) {
   function changeTileAmount(e: ChangeEvent<HTMLInputElement>) {
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { ...next[id], amount: Number(e.target.value) } as SplitTile &
-        DefaultTileProperties;
+      next[id] = { ...next[id], amount: Number(e.target.value) } as SplitTile;
       return next;
     });
   }
@@ -68,7 +62,7 @@ export default function Split({ id, orientation }: SplitProps) {
   function changeSizes(sizes: number[]) {
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { ...next[id], sizes } as SplitTile & DefaultTileProperties;
+      next[id] = { ...next[id], sizes } as SplitTile;
       return next;
     });
   }

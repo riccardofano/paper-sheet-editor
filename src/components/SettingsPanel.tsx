@@ -1,4 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
+import { toPng } from "html-to-image";
+
 import { SelectedTileContext, TilesContext } from "../Tile";
 import TextActions from "./TextActions";
 
@@ -113,6 +115,9 @@ export default function SettingsPanel() {
       <h1>Selected text settings</h1>
       <TextActions />
 
+      <h1>Save canvas as an image</h1>
+      <button onClick={saveToPng}>Save to png</button>
+
       <h1>Selected tile settings</h1>
       {selectedTile.type !== null &&
         Object.entries(selectedTile).map(([key, value]) => {
@@ -217,4 +222,28 @@ function getAllPresets(): Record<string, unknown> {
 
 function savePresets(presets: Record<string, unknown>) {
   localStorage.setItem("presets", JSON.stringify(presets));
+}
+
+function saveToPng() {
+  const node = document.getElementById("canvas")?.firstChild;
+
+  if (!node) {
+    console.error("Could not find the canvas node");
+    return;
+  }
+
+  toPng(node as HTMLElement)
+    .then(function (dataUrl) {
+      console.log("here", dataUrl);
+      const element = document.createElement("a");
+      element.setAttribute("href", dataUrl);
+      element.setAttribute("download", "canvas.png");
+
+      element.style.display = "none";
+      document.body.appendChild(element);
+      element.click();
+    })
+    .catch(function (error) {
+      console.error("oops, something went wrong!", error);
+    });
 }

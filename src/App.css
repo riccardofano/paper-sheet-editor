@@ -1,12 +1,13 @@
-.canvas {
+#canvas {
   --margin: 1rem;
   height: calc(100vh - (var(--margin) * 2));
   margin: var(--margin);
   aspect-ratio: 1/1.414;
 }
 
-.canvas > * {
-  border: 2px solid green;
+#canvas > * {
+  background-color: white;
+  outline: 2px solid green;
 }
 
 .tile {

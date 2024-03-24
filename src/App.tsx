@@ -28,7 +28,7 @@ function App() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           <SettingsPanel />
 
-          <main className="canvas">
+          <main id="canvas">
             <Tile id={0} />
           </main>
         </div>

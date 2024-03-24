@@ -1,16 +1,32 @@
+import { useState } from "react";
+
+const FONT_SIZES = ["xxs", "xs", "s", "m", "l", "xl", "xxl"];
+
 export default function TextActions() {
-  function executeAction(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    action: string
-  ) {
-    e.preventDefault();
-    document.execCommand(action, false);
-  }
+  const [fontSize, setFontSize] = useState(4);
 
   return (
     <>
-      <button onClick={(e) => executeAction(e, "bold")}>Bold</button>
-      <button onClick={(e) => executeAction(e, "italic")}>Italic</button>
+      <button onClick={() => document.execCommand("bold", false)}>Bold</button>
+      <button onClick={() => document.execCommand("italic")}>Italic</button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (fontSize < 1 || fontSize > 7) return;
+          document.execCommand("fontSize", false, String(fontSize));
+        }}
+      >
+        <select
+          name="font-size"
+          value={fontSize}
+          onChange={(e) => setFontSize(+e.target.value)}
+        >
+          {FONT_SIZES.map((value, i) => (
+            <option value={i + 1}>{value}</option>
+          ))}
+        </select>
+        <button>Change font size</button>
+      </form>
     </>
   );
 }

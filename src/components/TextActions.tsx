@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FONT_SIZES = ["xxs", "xs", "s", "m", "l", "xl", "xxl"];
+const FONT_SIZES = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
 
 export default function TextActions() {
   const [fontSize, setFontSize] = useState(4);

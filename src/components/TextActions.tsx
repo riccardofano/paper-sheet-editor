@@ -22,7 +22,9 @@ export default function TextActions() {
           onChange={(e) => setFontSize(+e.target.value)}
         >
           {FONT_SIZES.map((value, i) => (
-            <option value={i + 1}>{value}</option>
+            <option key={i} value={i + 1}>
+              {value}
+            </option>
           ))}
         </select>
         <button>Change font size</button>

@@ -110,6 +110,9 @@ export default function SettingsPanel() {
         <button>Load preset</button>
       </form>
 
+      <h1>Selected text settings</h1>
+      <TextActions />
+
       <h1>Selected tile settings</h1>
       {selectedTile.type !== null &&
         Object.entries(selectedTile).map(([key, value]) => {
@@ -131,8 +134,6 @@ export default function SettingsPanel() {
             />
           );
         })}
-      <h1>Text actions</h1>
-      <TextActions />
     </section>
   );
 }

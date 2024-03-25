@@ -225,16 +225,23 @@ function savePresets(presets: Record<string, unknown>) {
 }
 
 function saveToPng() {
-  const node = document.getElementById("canvas")?.firstChild;
+  const canvas = document.getElementById("canvas");
 
-  if (!node) {
+  if (!canvas) {
     console.error("Could not find the canvas node");
     return;
   }
 
-  toPng(node as HTMLElement)
+  const firstTile = canvas.firstElementChild;
+  if (!firstTile) {
+    console.error("Could not find the first tile");
+    return;
+  }
+
+  canvas.classList.add("saving");
+  toPng(firstTile as HTMLElement)
     .then(function (dataUrl) {
-      console.log("here", dataUrl);
+      canvas.classList.remove("saving");
       const element = document.createElement("a");
       element.setAttribute("href", dataUrl);
       element.setAttribute("download", "canvas.png");
@@ -244,6 +251,7 @@ function saveToPng() {
       element.click();
     })
     .catch(function (error) {
+      canvas.classList.remove("saving");
       console.error("oops, something went wrong!", error);
     });
 }

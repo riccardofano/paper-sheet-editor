@@ -23,7 +23,7 @@ export default function Text({ id }: { id: number }) {
     <ContentEditable
       html={tile.text}
       onChange={handleChange}
-      style={{ minWidth: "1rem", border: "1px dashed gray" }}
+      className="content-editable"
     />
   );
 }

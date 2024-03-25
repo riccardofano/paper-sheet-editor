@@ -34,6 +34,7 @@
 .react-split__sash {
   background-color: #175ede;
 }
+
 .react-split--dragging.react-split--vertical {
   cursor: col-resize;
 }
@@ -49,4 +50,10 @@ body.react-split--disabled {
 }
 .split-sash-content.split-sash-content-vscode.split-sash-content-active {
   background-color: #175ede;
+}
+
+.saving .react-split__sash,
+.saving
+  .split-sash-content.split-sash-content-vscode.split-sash-content-active {
+  background-color: transparent;
 }

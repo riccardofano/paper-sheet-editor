@@ -24,6 +24,7 @@ export type TextTile = {
 export type ListTile = {
   type: "List";
   paragraphs: string[];
+  font: string;
 } & DefaultTileProperties;
 export type ImageTile = { type: "Image"; url: string } & DefaultTileProperties;
 export type SplitTile = {
@@ -60,7 +61,12 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
         quoted: false,
       };
     case "List":
-      return { ...defaultTileProperties, type, paragraphs: [] };
+      return {
+        ...defaultTileProperties,
+        type,
+        paragraphs: [],
+        font: "Merriweather",
+      };
     case "Image":
       return { ...defaultTileProperties, type, url: "" };
   }

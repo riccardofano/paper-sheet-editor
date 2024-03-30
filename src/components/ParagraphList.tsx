@@ -42,18 +42,20 @@ export default function ParagraphList({ id }: ParagraphListProps) {
   }
 
   return (
-    <div className="paragraph-list">
+    <>
       <button className="add-paragraph" onClick={addParagraph}>
         +
       </button>
-      {tile.paragraphs.map((text, i) => (
-        // TODO: add way to remove paragraph
-        <ContentEditable
-          key={i}
-          html={text}
-          onChange={(e) => handleChange(e, i)}
-        />
-      ))}
-    </div>
+      <div className="paragraph-list" style={{ fontFamily: tile.font }}>
+        {tile.paragraphs.map((text, i) => (
+          // TODO: add way to remove paragraph
+          <ContentEditable
+            key={i}
+            html={text}
+            onChange={(e) => handleChange(e, i)}
+          />
+        ))}
+      </div>
+    </>
   );
 }

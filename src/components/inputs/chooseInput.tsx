@@ -3,6 +3,17 @@ import BooleanInput from "./BooleanInput";
 import NumberInput from "./NumberInput";
 import StringInput from "./StringInput";
 
+import { FONTS } from "../../fonts";
+import SelectInput from "./SelectInput";
+
+const SPECIAL_KEYS: Record<string, string> = {
+  font: "select",
+} as const;
+
+const SELECTION_LISTS: Record<string, string[]> = {
+  font: FONTS,
+} as const;
+
 export function chooseInputType<T>(
   tileId: number,
   label: string,
@@ -13,12 +24,24 @@ export function chooseInputType<T>(
     return <ArrayInput tileId={tileId} label={label} values={value} />;
   }
 
-  switch (typeof value) {
+  const type = SPECIAL_KEYS[label] ?? typeof value;
+
+  switch (type) {
+    case "select": {
+      return (
+        <SelectInput
+          label={label}
+          options={SELECTION_LISTS[label]}
+          value={value as string}
+          handleChange={handleChange as (value: string) => void}
+        />
+      );
+    }
     case "string": {
       return (
         <StringInput
           label={label}
-          value={value}
+          value={value as string}
           handleChange={handleChange as (value: string) => void}
         />
       );
@@ -27,7 +50,7 @@ export function chooseInputType<T>(
       return (
         <NumberInput
           label={label}
-          value={value}
+          value={value as number}
           handleChange={handleChange as (value: number) => void}
         />
       );
@@ -36,7 +59,7 @@ export function chooseInputType<T>(
       return (
         <BooleanInput
           label={label}
-          value={value}
+          value={value as boolean}
           handleChange={handleChange as (value: boolean) => void}
         />
       );

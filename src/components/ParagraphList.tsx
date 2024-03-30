@@ -46,7 +46,7 @@ export default function ParagraphList({ id }: ParagraphListProps) {
       <button className="add-paragraph" onClick={addParagraph}>
         +
       </button>
-      <div className="paragraph-list" style={{ fontFamily: tile.font }}>
+      <div className="paragraph-list" style={{ fontFamily: `"${tile.font}"` }}>
         {tile.paragraphs.map((text, i) => (
           // TODO: add way to remove paragraph
           <ContentEditable

@@ -20,6 +20,7 @@ export type TextTile = {
   type: "Text";
   text: string;
   quoted: boolean;
+  font: string;
 } & DefaultTileProperties;
 export type ListTile = {
   type: "List";
@@ -59,6 +60,7 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
         type,
         text: "Insert some text here",
         quoted: false,
+        font: "Merriweather",
       };
     case "List":
       return {

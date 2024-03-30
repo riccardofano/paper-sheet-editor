@@ -25,6 +25,7 @@ export default function Text({ id }: { id: number }) {
       onChange={handleChange}
       className="content-editable"
       tagName="p"
+      style={{ fontFamily: `"${tile.font}"` }}
     />
   );
 

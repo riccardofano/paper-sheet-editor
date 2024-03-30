@@ -1,34 +1,24 @@
-import { ChangeEvent, useContext } from "react";
-import { TilesContext } from "../../Tile";
+import { ChangeEvent } from "react";
 
 interface BooleanInputProps {
-  tileId: number;
   label: string;
   value: boolean;
+  handleChange: (change: boolean) => void;
 }
 
 export default function BooleanInput({
-  tileId,
   label,
   value,
+  handleChange,
 }: BooleanInputProps) {
-  const { setTiles } = useContext(TilesContext);
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setTiles((prev) => {
-      const next = [...prev];
-      // @ts-expect-error: The keys provided to the function come from the
-      // object itself already so it shouldn't be a problem to index by them
-      next[tileId][label] = e.target.checked;
-      return next;
-    });
+  function giveChangedValue(e: ChangeEvent<HTMLInputElement>) {
+    handleChange(e.target.checked);
   }
 
   return (
     <label>
       {label}
-      <br />
-      <input type="text" checked={value} onChange={handleChange} />
+      <input type="checkbox" checked={value} onChange={giveChangedValue} />
     </label>
   );
 }

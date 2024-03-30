@@ -16,7 +16,11 @@ export type TileType = (typeof tileTypes)[number];
 
 export type DefaultTileProperties = { padding: string; margin: string };
 export type NullTile = { type: null } & DefaultTileProperties;
-export type TextTile = { type: "Text"; text: string } & DefaultTileProperties;
+export type TextTile = {
+  type: "Text";
+  text: string;
+  quoted: boolean;
+} & DefaultTileProperties;
 export type ListTile = {
   type: "List";
   paragraphs: string[];
@@ -49,7 +53,12 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
         childIds: [],
       };
     case "Text":
-      return { ...defaultTileProperties, type, text: "Insert some text here" };
+      return {
+        ...defaultTileProperties,
+        type,
+        text: "Insert some text here",
+        quoted: false,
+      };
     case "List":
       return { ...defaultTileProperties, type, paragraphs: [] };
     case "Image":

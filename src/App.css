@@ -65,6 +65,18 @@
   outline: 1px dashed grey;
 }
 
+blockquote {
+  margin: 0;
+}
+
+blockquote p::before {
+  content: "\201C";
+}
+
+blockquote p::after {
+  content: "\201D";
+}
+
 /* Disable construction lines when saving as image */
 
 #canvas .saving .tile,
@@ -78,4 +90,8 @@
 }
 .saving .selected {
   background-color: transparent;
+}
+
+label {
+  display: block;
 }

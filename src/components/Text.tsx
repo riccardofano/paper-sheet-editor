@@ -19,11 +19,18 @@ export default function Text({ id }: { id: number }) {
     });
   }
 
-  return (
+  const content = (
     <ContentEditable
       html={tile.text}
       onChange={handleChange}
       className="content-editable"
+      tagName="p"
     />
   );
+
+  if (tile.quoted) {
+    return <blockquote>{content}</blockquote>;
+  }
+
+  return content;
 }

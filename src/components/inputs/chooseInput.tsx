@@ -1,4 +1,5 @@
 import ArrayInput from "./ArrayInput";
+import BooleanInput from "./BooleanInput";
 import NumberInput from "./NumberInput";
 import StringInput from "./StringInput";
 
@@ -28,6 +29,15 @@ export function chooseInputType<T>(
           label={label}
           value={value}
           handleChange={handleChange as (value: number) => void}
+        />
+      );
+    }
+    case "boolean": {
+      return (
+        <BooleanInput
+          label={label}
+          value={value}
+          handleChange={handleChange as (value: boolean) => void}
         />
       );
     }

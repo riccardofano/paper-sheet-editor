@@ -11,12 +11,12 @@ interface TileSettingsProps {
 export default function TileSettings({ tileId, tile }: TileSettingsProps) {
   const { setTiles } = useContext(TilesContext);
 
-  function handleChange(change: unknown) {
+  function handleChange(key: string, change: unknown) {
     setTiles((prev) => {
       const next = [...prev];
       // @ts-expect-error: The keys provided to the function come from the
       // object itself already so it shouldn't be a problem to index by them
-      next[tileId][label] = change;
+      next[tileId][key] = change;
       return next;
     });
   }
@@ -26,7 +26,9 @@ export default function TileSettings({ tileId, tile }: TileSettingsProps) {
       <h1>Selected tile settings</h1>
       {tile.type !== null &&
         Object.entries(tile).map(([key, value]) =>
-          chooseInputType(tileId, key, value, handleChange)
+          chooseInputType(tileId, key, value, (change) =>
+            handleChange(key, change)
+          )
         )}
     </>
   );

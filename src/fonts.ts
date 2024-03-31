@@ -13,6 +13,7 @@ export const FONTS = [
   "Lato",
   "Montserrat",
   "Poppins",
+
   "Fira Sans",
   "Roboto Condensed",
   "Proza Libre",

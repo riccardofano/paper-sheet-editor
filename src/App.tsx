@@ -25,13 +25,13 @@ function App() {
       }}
     >
       <TilesContext.Provider value={{ tiles, setTiles }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <main style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           <SettingsPanel />
 
-          <main id="canvas">
+          <article className="canvas">
             <Tile id={0} />
-          </main>
-        </div>
+          </article>
+        </main>
       </TilesContext.Provider>
     </SelectedTileContext.Provider>
   );

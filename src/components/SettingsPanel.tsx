@@ -113,7 +113,7 @@ function savePresets(presets: Record<string, unknown>) {
 }
 
 function saveToPng() {
-  const canvas = document.getElementById("canvas");
+  const canvas = document.querySelector(".canvas");
 
   if (!canvas) {
     console.error("Could not find the canvas node");

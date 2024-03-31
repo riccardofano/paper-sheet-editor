@@ -66,7 +66,7 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
       return {
         ...defaultTileProperties,
         type,
-        paragraphs: [],
+        paragraphs: ["Insert some text here"],
         font: "Merriweather",
       };
     case "Image":

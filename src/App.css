@@ -1,13 +1,27 @@
+main {
+  display: grid;
+  height: 100vh;
+  overflow-y: hidden;
+  grid-template-columns: max-content 1fr;
+  column-gap: 2rem;
+}
+
+.settings {
+  padding-block: 1rem;
+  overflow-y: auto;
+}
+
 .canvas {
-  --margin: 1rem;
-  height: calc(100vh - (var(--margin) * 2));
-  margin: var(--margin);
+  z-index: 5;
+  height: 100vh;
   aspect-ratio: 1/1.414;
+  overflow-y: hidden;
+  box-shadow: -200px 0 50px rgba(0, 0, 0, 0.05),
+    200px 0 50px rgba(0, 0, 0, 0.05);
 }
 
 .canvas > * {
   background-color: white;
-  outline: 2px solid green;
 }
 
 .tile {
@@ -19,7 +33,7 @@
 }
 
 .tile.selected {
-  background-color: skyblue;
+  /* background-color: skyblue; */
 }
 
 .dismiss,
@@ -77,6 +91,10 @@ blockquote p::after {
   content: "\201D";
 }
 
+label {
+  display: block;
+}
+
 /* Disable construction lines when saving as image */
 
 .canvas .saving .tile,
@@ -90,8 +108,4 @@ blockquote p::after {
 }
 .saving .selected {
   background-color: transparent;
-}
-
-label {
-  display: block;
 }

@@ -58,7 +58,7 @@ export default function SettingsPanel() {
   }
 
   return (
-    <section style={{ padding: "1rem" }}>
+    <section className="settings">
       <h1>Presets</h1>
       <form onSubmit={saveCurrentAsPreset}>
         <h2>Save as preset</h2>

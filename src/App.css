@@ -43,16 +43,36 @@ main {
   right: 1rem;
   display: none;
   z-index: 10;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  border-bottom: 0.2rem solid;
+}
+
+.dismiss:active,
+.add-paragraph:active {
+  border: none;
+}
+
+.dismiss:hover,
+.add-paragraph:hover {
+  filter: brightness(90%);
 }
 
 .dismiss {
   top: 1rem;
   right: 1rem;
+  background-color: #be123c;
+  border-color: #9f1239;
 }
 
 .add-paragraph {
   top: 1rem;
   left: 1rem;
+  background-color: #16a34a;
+  border-color: #166534;
 }
 
 .tile:hover .dismiss,

@@ -44,7 +44,7 @@ export default function ParagraphList({ id }: ParagraphListProps) {
   return (
     <>
       <button className="add-paragraph" onClick={addParagraph}>
-        +
+        ＋
       </button>
       <div className="paragraph-list" style={{ fontFamily: `"${tile.font}"` }}>
         {tile.paragraphs.map((text, i) => (

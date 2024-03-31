@@ -7,16 +7,12 @@ import { SplitTile, TilesContext, getDefaultProperties } from "../Tile";
 
 interface SplitProps {
   id: number;
+  tile: SplitTile;
   orientation: "vertical" | "horizontal";
 }
 
-export default function Split({ id, orientation }: SplitProps) {
+export default function Split({ id, tile, orientation }: SplitProps) {
   const { tiles, setTiles } = useContext(TilesContext);
-
-  const tile = tiles[id];
-  if (tile.type !== "Horizontal Split" && tile.type !== "Vertical Split") {
-    return;
-  }
 
   // TODO: When the amount changes the amount of splits should change too
   const { amount, sizes, childIds } = tile;

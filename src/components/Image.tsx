@@ -1,9 +1,13 @@
 import { ChangeEvent, useContext } from "react";
 import { ImageTile, TilesContext } from "../Tile";
 
-export default function Image({ id }: { id: number }) {
-  const { tiles, setTiles } = useContext(TilesContext);
-  const tile = tiles[id];
+interface ImageProps {
+  id: number;
+  tile: ImageTile;
+}
+
+export default function Image({ id, tile }: ImageProps) {
+  const { setTiles } = useContext(TilesContext);
 
   function handleImagePicker(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -15,10 +19,6 @@ export default function Image({ id }: { id: number }) {
       next[id] = { ...next[id], url } as ImageTile;
       return next;
     });
-  }
-
-  if (tile.type !== "Image") {
-    return;
   }
 
   const selectedImage = tile.url;

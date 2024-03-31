@@ -3,13 +3,13 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 import { TextTile, TilesContext } from "../Tile";
 
-export default function Text({ id }: { id: number }) {
-  const { tiles, setTiles } = useContext(TilesContext);
-  const tile = tiles[id];
+interface TextProps {
+  id: number;
+  tile: TextTile;
+}
 
-  if (tile.type !== "Text") {
-    return;
-  }
+export default function Text({ id, tile }: TextProps) {
+  const { setTiles } = useContext(TilesContext);
 
   function handleChange(e: ContentEditableEvent) {
     setTiles((prev) => {

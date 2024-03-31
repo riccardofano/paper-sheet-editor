@@ -4,11 +4,11 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 interface ParagraphListProps {
   id: number;
+  tile: ListTile;
 }
 
-export default function ParagraphList({ id }: ParagraphListProps) {
-  const { tiles, setTiles } = useContext(TilesContext);
-  const tile = tiles[id];
+export default function ParagraphList({ id, tile }: ParagraphListProps) {
+  const { setTiles } = useContext(TilesContext);
 
   function addParagraph() {
     setTiles((prev) => {
@@ -35,10 +35,6 @@ export default function ParagraphList({ id }: ParagraphListProps) {
       next[id] = { ...tile, paragraphs: nextParagraphs };
       return next;
     });
-  }
-
-  if (tile.type !== "List") {
-    return;
   }
 
   return (

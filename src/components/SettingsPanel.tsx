@@ -127,19 +127,23 @@ function saveToPng() {
   }
 
   canvas.classList.add("saving");
-  toPng(firstTile as HTMLElement)
-    .then(function (dataUrl) {
-      canvas.classList.remove("saving");
-      const element = document.createElement("a");
-      element.setAttribute("href", dataUrl);
-      element.setAttribute("download", "canvas.png");
+  // HACK: wait for class to be applied
+  setTimeout(() => {
+    toPng(firstTile as HTMLElement)
+      .then(function (dataUrl) {
+        canvas.classList.remove("saving");
+        const element = document.createElement("a");
+        element.setAttribute("href", dataUrl);
+        element.setAttribute("download", "canvas.png");
 
-      element.style.display = "none";
-      document.body.appendChild(element);
-      element.click();
-    })
-    .catch(function (error) {
-      canvas.classList.remove("saving");
-      console.error("oops, something went wrong!", error);
-    });
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        element.remove();
+      })
+      .catch(function (error) {
+        canvas.classList.remove("saving");
+        console.error("oops, something went wrong!", error);
+      });
+  }, 100);
 }

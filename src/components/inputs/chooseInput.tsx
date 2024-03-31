@@ -21,7 +21,9 @@ export function chooseInputType<T>(
   handleChange: (value: T) => void
 ): JSX.Element {
   if (Array.isArray(value)) {
-    return <ArrayInput tileId={tileId} label={label} values={value} />;
+    return (
+      <ArrayInput key={label} tileId={tileId} label={label} values={value} />
+    );
   }
 
   const type = SPECIAL_KEYS[label] ?? typeof value;
@@ -30,6 +32,7 @@ export function chooseInputType<T>(
     case "select": {
       return (
         <SelectInput
+          key={label}
           label={label}
           options={SELECTION_LISTS[label]}
           value={value as string}
@@ -40,6 +43,7 @@ export function chooseInputType<T>(
     case "string": {
       return (
         <StringInput
+          key={label}
           label={label}
           value={value as string}
           handleChange={handleChange as (value: string) => void}
@@ -49,6 +53,7 @@ export function chooseInputType<T>(
     case "number": {
       return (
         <NumberInput
+          key={label}
           label={label}
           value={value as number}
           handleChange={handleChange as (value: number) => void}
@@ -58,6 +63,7 @@ export function chooseInputType<T>(
     case "boolean": {
       return (
         <BooleanInput
+          key={label}
           label={label}
           value={value as boolean}
           handleChange={handleChange as (value: boolean) => void}

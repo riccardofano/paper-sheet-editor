@@ -48,6 +48,7 @@ export default function ParagraphList({ id, tile }: ParagraphListProps) {
           <ContentEditable
             key={i}
             html={text}
+            className="content-editable"
             onChange={(e) => handleChange(e, i)}
           />
         ))}

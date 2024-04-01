@@ -33,7 +33,7 @@ main {
 }
 
 .tile.selected {
-  /* background-color: skyblue; */
+  background-color: #bae6fd;
 }
 
 .dismiss,

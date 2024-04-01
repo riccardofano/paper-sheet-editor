@@ -22,6 +22,7 @@ export default function SelectInput({
       family
     )}:wght@400;700&display=swap`;
     link.rel = "stylesheet";
+    link.crossOrigin = "anonymous";
     document.getElementsByTagName("head")[0].appendChild(link);
 
     handleChange(family);

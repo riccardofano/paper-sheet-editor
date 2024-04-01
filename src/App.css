@@ -12,7 +12,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: var(--child-padding);
-  padding-inline-start: 2rem;
+  padding-inline-start: 3rem;
 }
 
 .settings > section {
@@ -58,8 +58,7 @@ main {
   height: 100vh;
   aspect-ratio: 1/1.414;
   overflow-y: hidden;
-  box-shadow: -200px 0 50px rgba(0, 0, 0, 0.05),
-    200px 0 50px rgba(0, 0, 0, 0.05);
+  box-shadow: 1rem 0 3rem rgba(0, 0, 0, 0.2);
 }
 
 .canvas > * {

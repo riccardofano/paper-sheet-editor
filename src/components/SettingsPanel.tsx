@@ -59,32 +59,48 @@ export default function SettingsPanel() {
 
   return (
     <section className="settings">
-      <h1>Presets</h1>
-      <form onSubmit={saveCurrentAsPreset}>
-        <h2>Save as preset</h2>
-        <input type="text" name="preset-name" />
-        <button>Save preset</button>
-      </form>
+      <h1>Canvas settings</h1>
 
-      <form onSubmit={loadPreset}>
-        <h2>Load preset</h2>
-        <select name="preset-name">
-          {Object.keys(presets).map((key) => (
-            <option key={key} value={key}>
-              {key}
-            </option>
-          ))}
-        </select>
-        <button>Load preset</button>
-      </form>
+      <section>
+        <h2>Presets</h2>
+        <form onSubmit={saveCurrentAsPreset}>
+          <h3>Save as preset</h3>
+          <input type="text" name="preset-name" />
+          <button>Save preset</button>
+        </form>
 
-      <h1>Selected text settings</h1>
-      <TextActions />
+        <br />
 
-      <h1>Save canvas as an image</h1>
-      <button onClick={saveToPng}>Save to png</button>
+        {Object.keys(presets).length > 0 && (
+          <form onSubmit={loadPreset}>
+            <h3>Load preset</h3>
+            <select name="preset-name">
+              {Object.keys(presets).map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
+            <button>Load preset</button>
+          </form>
+        )}
+      </section>
 
-      <TileSettings tileId={selectedTileId} tile={selectedTile} />
+      <section>
+        <h2>Save canvas as an image</h2>
+        <button className="btn-primary" onClick={saveToPng}>
+          Save to png
+        </button>
+      </section>
+
+      <section>
+        <h2>Selected text settings</h2>
+        <TextActions />
+      </section>
+
+      <section>
+        <TileSettings tileId={selectedTileId} tile={selectedTile} />
+      </section>
     </section>
   );
 }

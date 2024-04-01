@@ -3,12 +3,54 @@ main {
   height: 100vh;
   overflow-y: hidden;
   grid-template-columns: max-content 1fr;
-  column-gap: 2rem;
 }
 
 .settings {
-  padding-block: 1rem;
+  --child-padding: 2rem;
+  padding-block: 2rem;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--child-padding);
+  padding-inline-start: 2rem;
+}
+
+.settings > section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: var(--child-padding);
+}
+
+.settings h1 {
+  font-size: 1.5rem;
+}
+.settings h2 {
+  font-size: 1.125rem;
+  margin-block-end: 0.5rem;
+}
+.settings h3 {
+  font-size: 1rem;
+}
+
+.settings button,
+.settings input,
+.settings select {
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #d1d5db;
+}
+
+.settings input,
+.settings select {
+  line-height: 1.5;
+  margin-right: 0.5rem;
+}
+
+.settings .btn-primary {
+  background-color: #16a34a;
+  border: 1px solid #137f3a;
+  color: white;
 }
 
 .canvas {

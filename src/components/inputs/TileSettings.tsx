@@ -27,8 +27,8 @@ export default function TileSettings({ tileId, tile }: TileSettingsProps) {
       {tile.type !== null &&
         Object.entries(tile).map(([key, value]) =>
           chooseInputType(tileId, key, value, (change) =>
-            handleChange(key, change)
-          )
+            handleChange(key, change),
+          ),
         )}
     </>
   );

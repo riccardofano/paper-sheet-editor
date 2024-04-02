@@ -18,7 +18,7 @@ export function chooseInputType<T>(
   tileId: number,
   label: string,
   value: T,
-  handleChange: (value: T) => void
+  handleChange: (value: T) => void,
 ): JSX.Element {
   if (Array.isArray(value)) {
     return (

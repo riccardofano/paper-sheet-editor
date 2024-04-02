@@ -50,7 +50,10 @@ export default function Split({ id, tile, orientation }: SplitProps) {
   function changeTileAmount(e: ChangeEvent<HTMLInputElement>) {
     setTiles((prev) => {
       const next = [...prev];
-      next[id] = { ...next[id], amount: Number(e.target.value) } as SplitTile;
+      next[id] = {
+        ...next[id],
+        amount: Number(e.target.value),
+      } as SplitTile;
       return next;
     });
   }

@@ -19,7 +19,7 @@ export default function SelectInput({
 
     const link = document.createElement("link");
     link.href = `https://fonts.googleapis.com/css2?family=${encodeURI(
-      family
+      family,
     )}:wght@400;700&display=swap`;
     link.rel = "stylesheet";
     link.crossOrigin = "anonymous";

@@ -19,7 +19,7 @@ export default function ArrayInput<T>({
     tileId: number,
     key: string,
     change: T,
-    index: number
+    index: number,
   ) {
     setTiles((prev) => {
       const next = [...prev];
@@ -43,8 +43,8 @@ export default function ArrayInput<T>({
       {label}
       {values.map((value, index) =>
         chooseInputType(tileId, String(index), value, (change) =>
-          changeArrayIndex(tileId, label, change, index)
-        )
+          changeArrayIndex(tileId, label, change, index),
+        ),
       )}
     </section>
   );

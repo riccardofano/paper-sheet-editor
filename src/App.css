@@ -32,6 +32,8 @@ main {
   margin-block-end: 0.25rem;
 }
 
+.tile select,
+.tile button,
 .settings button,
 .settings input,
 .settings select {
@@ -87,8 +89,8 @@ main {
   background-color: #bae6fd;
 }
 
-.dismiss,
-.add-paragraph {
+.tile .dismiss,
+.tile .add-paragraph {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -102,24 +104,24 @@ main {
   border-bottom: 0.2rem solid;
 }
 
-.dismiss:active,
-.add-paragraph:active {
+.tile .dismiss:active,
+.tile .add-paragraph:active {
   border: none;
 }
 
-.dismiss:hover,
-.add-paragraph:hover {
+.tile .dismiss:hover,
+.tile .add-paragraph:hover {
   filter: brightness(90%);
 }
 
-.dismiss {
+.tile .dismiss {
   top: 1rem;
   right: 1rem;
   background-color: #be123c;
   border-color: #9f1239;
 }
 
-.add-paragraph {
+.tile .add-paragraph {
   top: 1rem;
   left: 1rem;
   background-color: #16a34a;

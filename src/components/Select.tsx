@@ -22,7 +22,12 @@ export default function TypeSelection({ id }: TypeSelectionProps) {
   }
 
   return (
-    <select name="tileType" onChange={handleChange} defaultValue="">
+    <select
+      className="tile-chooser"
+      name="tileType"
+      onChange={handleChange}
+      defaultValue=""
+    >
       <option disabled value="">
         -- Pick the tile type --
       </option>

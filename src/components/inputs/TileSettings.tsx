@@ -22,7 +22,7 @@ export default function TileSettings({ tileId, tile }: TileSettingsProps) {
   }
 
   return (
-    <>
+    <div className="fields tile-settings">
       <h1>Selected tile settings</h1>
       {tile.type !== null &&
         Object.entries(tile).map(([key, value]) =>
@@ -30,6 +30,6 @@ export default function TileSettings({ tileId, tile }: TileSettingsProps) {
             handleChange(key, change),
           ),
         )}
-    </>
+    </div>
   );
 }

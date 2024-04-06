@@ -29,6 +29,7 @@ main {
 }
 .settings h3 {
   font-size: 1rem;
+  margin-block-end: 0.25rem;
 }
 
 .settings button,
@@ -44,13 +45,22 @@ main {
 .settings input,
 .settings select {
   line-height: 1.5;
-  margin-right: 0.5rem;
 }
 
 .settings .btn-primary {
   background-color: #16a34a;
   border: 1px solid #137f3a;
   color: white;
+}
+
+.settings .fields {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tile-settings {
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .canvas {

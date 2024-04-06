@@ -63,8 +63,8 @@ export default function SettingsPanel() {
 
       <section>
         <h2>Presets</h2>
-        <form onSubmit={saveCurrentAsPreset}>
-          <h3>Save as preset</h3>
+        <h3>Save as preset</h3>
+        <form className="fields" onSubmit={saveCurrentAsPreset}>
           <input type="text" name="preset-name" />
           <button>Save preset</button>
         </form>
@@ -72,17 +72,19 @@ export default function SettingsPanel() {
         <br />
 
         {Object.keys(presets).length > 0 && (
-          <form onSubmit={loadPreset}>
+          <>
             <h3>Load preset</h3>
-            <select name="preset-name">
-              {Object.keys(presets).map((key) => (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              ))}
-            </select>
-            <button>Load preset</button>
-          </form>
+            <form className="fields" onSubmit={loadPreset}>
+              <select name="preset-name">
+                {Object.keys(presets).map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+              <button>Load preset</button>
+            </form>
+          </>
         )}
       </section>
 

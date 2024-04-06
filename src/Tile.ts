@@ -58,16 +58,16 @@ export function getDefaultProperties(type: TileType | null): TileProperties {
       return {
         ...defaultTileProperties,
         type,
+        font: "Raleway",
         text: "Insert some text here",
         quoted: false,
-        font: "Raleway",
       };
     case "List":
       return {
         ...defaultTileProperties,
         type,
-        paragraphs: ["Insert some text here"],
         font: "Raleway",
+        paragraphs: ["Insert some text here"],
       };
     case "Image":
       return { ...defaultTileProperties, type, url: "" };

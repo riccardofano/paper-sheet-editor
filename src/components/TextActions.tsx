@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const FONT_SIZES = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
 
@@ -23,7 +23,7 @@ export default function TextActions() {
         <em>Italic</em>
       </button>
 
-      <select value={fontSize} onChange={(e) => setFontSize(+e.target.value)}>
+      <select value={fontSize} onChange={updateFontSize}>
         {FONT_SIZES.map((value, i) => (
           <option key={i} value={i + 1}>
             {value}

@@ -14,12 +14,18 @@ const SELECTION_LISTS: Record<string, string[]> = {
   font: FONTS,
 } as const;
 
+const EXCLUDED_KEYS = ["type", "childIds", "sizes"];
+
 export function chooseInputType<T>(
   tileId: number,
   label: string,
   value: T,
   handleChange: (value: T) => void,
 ): JSX.Element {
+  if (EXCLUDED_KEYS.includes(label)) {
+    return <></>;
+  }
+
   if (Array.isArray(value)) {
     return (
       <ArrayInput key={label} tileId={tileId} label={label} values={value} />

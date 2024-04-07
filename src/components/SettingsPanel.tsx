@@ -1,7 +1,11 @@
 import { FormEvent, useContext, useState } from "react";
 import { toPng } from "html-to-image";
 
-import { SelectedTileContext, TilesContext } from "../Tile";
+import {
+  SelectedTileContext,
+  TilesContext,
+  getDefaultProperties,
+} from "../Tile";
 import TextActions from "./TextActions";
 import TileSettings from "./inputs/TileSettings";
 
@@ -51,6 +55,15 @@ export default function SettingsPanel() {
     setTiles(presetToLoad);
   }
 
+  function resetCanvas() {
+    // TODO: Make this nicer
+    const result = confirm("Are you sure you want to reset the canvas?");
+    if (!result) {
+      return;
+    }
+    setTiles([getDefaultProperties(null)]);
+  }
+
   const selectedTile = tiles[selectedTileId];
   if (!selectedTile) {
     console.error("Selected tile does not exist");
@@ -60,6 +73,14 @@ export default function SettingsPanel() {
   return (
     <section className="settings">
       <h1>Canvas settings</h1>
+      <section className="fields">
+        <button className="btn-danger" onClick={resetCanvas}>
+          Reset canvas
+        </button>
+        <button className="btn-primary" onClick={saveToPng}>
+          Save to png
+        </button>
+      </section>
 
       <section>
         <h2>Presets</h2>
@@ -86,13 +107,6 @@ export default function SettingsPanel() {
             </form>
           </>
         )}
-      </section>
-
-      <section>
-        <h2>Save canvas as an image</h2>
-        <button className="btn-primary" onClick={saveToPng}>
-          Save to png
-        </button>
       </section>
 
       <section>
